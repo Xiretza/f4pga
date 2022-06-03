@@ -32,15 +32,9 @@ FPGA_FAM = f4pga_environ.get('FPGA_FAM', 'xc7')
 isQuickLogic = FPGA_FAM == 'eos-s3'
 SH_SUBDIR = 'quicklogic' if isQuickLogic else FPGA_FAM
 
-F4PGA_INSTALL_DIR = f4pga_environ.get('F4PGA_INSTALL_DIR')
-if F4PGA_INSTALL_DIR is None:
-    raise(Exception("Required environment variable F4PGA_INSTALL_DIR is undefined!"))
-F4PGA_INSTALL_DIR_PATH = Path(F4PGA_INSTALL_DIR)
-
-f4pga_environ['F4PGA_BIN_DIR'] = f4pga_environ.get('F4PGA_BIN_DIR', str(F4PGA_INSTALL_DIR_PATH / FPGA_FAM / 'conda/bin'))
-f4pga_environ['F4PGA_SHARE_DIR'] = f4pga_environ.get('F4PGA_SHARE_DIR', str(F4PGA_INSTALL_DIR_PATH / FPGA_FAM / (
-    'share' if isQuickLogic else 'install/share/f4pga'
-)))
+# PATCHED BY f4pga-git AUR PACKAGE
+f4pga_environ['F4PGA_BIN_DIR'] = '/usr/bin'  # TODO figure out where this is supposed to point (quicklogic only)
+f4pga_environ['F4PGA_SHARE_DIR'] = '/usr/share/symbiflow'
 
 
 def run_sh(script):
